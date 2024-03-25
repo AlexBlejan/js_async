@@ -60,3 +60,47 @@ try {
 }
 
 console.log(`After try/catch`);
+
+// fetch
+
+const baseUrl = `https://jsonplaceholder.typicode.com`;
+const posts = `/posts`;
+
+// exemplu folosind promisiuni
+
+fetch(`${baseUrl}${posts}`)
+	.then((response) => {
+		console.log(response);
+		response.json().then((data) => {
+			console.log(data);
+		});
+	})
+	.catch((e) => console.log(e));
+
+// exemplu folosind async/await
+
+async function getPosts() {
+	try {
+		const response = await fetch(`${baseUrl}${posts}`);
+		const data = await response.json();
+		console.log(`data: `, data);
+		return data;
+	} catch (e) {
+		console.log(`Something went wrong: `, e);
+	}
+}
+getPosts();
+
+async function displayPosts() {
+	const posts = await getPosts();
+	const postsTargeElement = document.getElementById(`main`);
+
+	for (const post of posts) {
+		const container = document.createElement(`article`);
+		container.innerHTML = `<h2>${post.title}</h2> 
+    <div>${post.body}</div>`;
+		postsTargeElement.appendChild(container);
+	}
+}
+
+displayPosts();
