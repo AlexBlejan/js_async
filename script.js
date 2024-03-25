@@ -46,3 +46,17 @@ async function doSomethingWithUsers() {
 	console.log(`users din await: `, users);
 }
 doSomethingWithUsers();
+
+// try / catch
+
+try {
+	const labels = [`label1`];
+	saySomething(`asdf`); //o functie inexistenta pt a genera o eroare
+	console.log(`First label is ${labels[0]}`);
+} catch (error) {
+	console.log(`An error has occured: `, error);
+} finally {
+	console.log(`Finally has executed`);
+}
+
+console.log(`After try/catch`);
